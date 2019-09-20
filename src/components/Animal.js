@@ -1,24 +1,22 @@
 import {Body, Card, CardItem} from 'native-base';
 import React, {Component} from 'react';
 import {Dimensions, Image, StyleSheet, Text} from 'react-native';
+import {connect} from 'react-redux';
+import {favoritar, desfavoritar} from '../actions';
 import BotaoFavoritar from './BotaoFavoritar';
+import {bindActionCreators} from 'redux';
 
 const {width} = Dimensions.get('screen');
 
-export default class Animal extends Component {
+class Animal extends Component {
   isFavoritado(animal, usuarioLogado) {
     return !!animal.favoritoUsuarios.find(usuario => usuario === usuarioLogado);
   }
   render() {
-    const {
-      animal,
-      usuarioLogado,
-      favoritarCallback,
-      desfavoritarCallback,
-    } = this.props;
+    const {animal} = this.props;
 
     return (
-      <Card cardDefaultBg>
+      <Card>
         <CardItem
           header
           button
@@ -37,9 +35,13 @@ export default class Animal extends Component {
         </CardItem>
         <CardItem footer bordered>
           <BotaoFavoritar
-            favoritado={this.isFavoritado(animal, usuarioLogado)}
-            favoritarCallback={() => favoritarCallback(animal)}
-            desfavoritarCallback={() => desfavoritarCallback(animal)}
+            favoritado={this.isFavoritado(animal, this.props.usuarioLogado)}
+            favoritarCallback={() =>
+              this.props.favoritar(animal, this.props.usuarioLogado)
+            }
+            desfavoritarCallback={() =>
+              this.props.desfavoritar(animal, this.props.usuarioLogado)
+            }
           />
           <Text>
             Este animal
@@ -56,6 +58,21 @@ export default class Animal extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    animais: state.animais,
+    usuarioLogado: state.usuarioLogado,
+  };
+};
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({favoritar, desfavoritar}, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Animal);
 
 const styles = StyleSheet.create({
   nomeAnimal: {fontSize: 18, fontWeight: 'bold'},
