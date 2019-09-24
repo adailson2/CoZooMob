@@ -1,23 +1,42 @@
 import {Container, Content, Header, Title} from 'native-base';
 import React, {Component} from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
 import {Provider} from 'react-redux';
 import ListaAnimais from './components/ListaAnimais';
 import configureStore from './configureStore';
+import Login from './components/Login';
+import Carregando from './components/Carregando';
 
 const store = configureStore();
+
+const AppNavigation = createStackNavigator(
+  {
+    Login,
+    ListaAnimais,
+  },
+  {
+    initialRouteName: 'Login',
+    defaultNavigationOptions: {
+      header: () => (
+        <Header style={styles.header}>
+          <Title>Controle de Animais</Title>
+        </Header>
+      ),
+    },
+  },
+);
+
+const Navigation = createAppContainer(AppNavigation);
 
 export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
         <Container>
-          <Header style={styles.header} androidStatusBarColor="rgb(11,102,35)">
-            <Title>Controle de Animais</Title>
-          </Header>
-          <Content padder>
-            <ListaAnimais />
-          </Content>
+          <Navigation />
+          <Carregando />
         </Container>
       </Provider>
     );
@@ -25,7 +44,7 @@ export default class App extends Component {
 }
 
 const styles = StyleSheet.create({
-  header: {height: 30, backgroundColor: 'rgb(11,102,35)'},
+  header: {height: 30},
   separator: {
     height: 1,
     backgroundColor: '#CED0CE',
