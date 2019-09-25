@@ -11,15 +11,15 @@ import {StyleSheet, Text} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {login} from '../actions';
-import Alerta from '../util/Alerta.android';
+import Alerta from '../util/Alerta';
 import {StackActions, NavigationActions} from 'react-navigation';
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      usuario: '',
-      senha: '',
+      usuario: 'jose',
+      senha: '123456',
     };
   }
 
@@ -47,7 +47,7 @@ class Login extends Component {
             <Input
               onChangeText={text => this.setState({usuario: text})}
               autoCapitalize="none"
-              value={this.state.text}
+              value={this.state.usuario}
             />
           </FormItem>
           <FormItem floatingLabel last>
@@ -55,7 +55,7 @@ class Login extends Component {
             <Input
               secureTextEntry={true}
               onChangeText={text => this.setState({senha: text})}
-              value={this.state.text}
+              value={this.state.senha}
             />
           </FormItem>
           <Button full primary style={styles.botaoLogin} onPress={this.login}>

@@ -1,6 +1,6 @@
-import {Container, Content, Header, Title} from 'native-base';
+import {Container, Header, Title} from 'native-base';
 import React, {Component} from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {Provider} from 'react-redux';
@@ -8,6 +8,7 @@ import ListaAnimais from './components/ListaAnimais';
 import configureStore from './configureStore';
 import Login from './components/Login';
 import Carregando from './components/Carregando';
+import IncluirAnimal from './components/IncluirAnimal';
 
 const store = configureStore();
 
@@ -15,6 +16,7 @@ const AppNavigation = createStackNavigator(
   {
     Login,
     ListaAnimais,
+    IncluirAnimal,
   },
   {
     initialRouteName: 'Login',

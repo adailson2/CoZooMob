@@ -1,7 +1,7 @@
-import {ToastAndroid} from 'react-native';
+import {AlertIOS} from 'react-native';
 
 export default class Alerta {
   static mensagem(texto) {
-    ToastAndroid.show(texto, ToastAndroid.LONG);
+    AlertIOS.alert('Atenção', texto);
   }
 }
