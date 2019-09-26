@@ -9,6 +9,7 @@ import configureStore from './configureStore';
 import Login from './components/Login';
 import Carregando from './components/Carregando';
 import IncluirAnimal from './components/IncluirAnimal';
+import AlterarAnimal from './components/AlterarAnimal';
 
 const store = configureStore();
 
@@ -17,6 +18,7 @@ const AppNavigation = createStackNavigator(
     Login,
     ListaAnimais,
     IncluirAnimal,
+    AlterarAnimal,
   },
   {
     initialRouteName: 'Login',

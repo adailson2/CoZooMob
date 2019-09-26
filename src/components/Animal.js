@@ -1,6 +1,12 @@
-import {Body, Card, CardItem} from 'native-base';
+import {Body, Card, CardItem, Right, Icon} from 'native-base';
 import React, {Component} from 'react';
-import {Dimensions, Image, StyleSheet, Text} from 'react-native';
+import {
+  Dimensions,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import {connect} from 'react-redux';
 import {favoritar, desfavoritar} from '../actions';
 import BotaoFavoritar from './BotaoFavoritar';
@@ -13,15 +19,18 @@ class Animal extends Component {
     return !!animal.favoritoUsuarios.find(usuario => usuario === usuarioLogado);
   }
   render() {
-    const {animal} = this.props;
+    const {animal, navigation} = this.props;
 
     return (
       <Card>
-        <CardItem
-          header
-          button
-          onPress={() => alert(`This is America ${animal.nome}`)}>
+        <CardItem header button>
           <Text style={styles.nomeAnimal}>{animal.nome}</Text>
+          <Right>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('AlterarAnimal', {animal})}>
+              <Icon name="create" style={styles.icone} />
+            </TouchableOpacity>
+          </Right>
         </CardItem>
         <CardItem bordered>
           <Body style={styles.imageContainer}>
@@ -77,6 +86,7 @@ export default connect(
 const styles = StyleSheet.create({
   nomeAnimal: {fontSize: 18, fontWeight: 'bold'},
   imagemAnimal: {width: width * 0.7, height: width * 0.7, borderRadius: 30},
+  icone: {fontSize: 30, color: 'black'},
   imageContainer: {
     flex: 1,
     justifyContent: 'center',
