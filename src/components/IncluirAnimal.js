@@ -1,24 +1,10 @@
-import {
-  Content,
-  Left,
-  Button,
-  Body,
-  Title,
-  Right,
-  Icon,
-  Form,
-  Input,
-  Item,
-  Header,
-  Text,
-} from 'native-base';
+import {Left, Button, Body, Title, Right, Icon, Header} from 'native-base';
 import React, {Component} from 'react';
-import {StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
-import MantemAnimalForm from './MantemAnimal';
+import MantemAnimalForm from './MantemAnimalForm';
 import {incluirAnimal} from '../actions';
 import {bindActionCreators} from 'redux';
-import Alerta from '../util/Alerta';
+import Alerta from '../util/Alerta.android';
 
 class IncluirAnimal extends Component {
   static navigationOptions = ({navigation}) => ({
@@ -30,7 +16,7 @@ class IncluirAnimal extends Component {
           </Button>
         </Left>
         <Body>
-          <Title>IncluirAnimal</Title>
+          <Title>Incluir Animal</Title>
         </Body>
         <Right />
       </Header>
@@ -38,7 +24,10 @@ class IncluirAnimal extends Component {
   });
   handleIncluirAnimal = animal => {
     animal.favoritoUsuarios = [];
-    console.warn('Animal a ser incluido: ', animal);
+    this.props
+      .incluirAnimal(animal)
+      .then(() => this.props.navigation.navigate('ListaAnimais'))
+      .catch(err => Alerta.mensagem('Erro ao incluir animal: ' + err.mensage));
   };
   render() {
     return <MantemAnimalForm onSubmit={this.handleIncluirAnimal} />;
@@ -47,13 +36,10 @@ class IncluirAnimal extends Component {
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({incluirAnimal}, dispatch);
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
 )(IncluirAnimal);
-
-const styles = StyleSheet.create({
-  botaoSalvar: {marginTop: 10},
-});

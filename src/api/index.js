@@ -25,5 +25,8 @@ export function atualizarAnimalAPI(animal) {
 }
 
 export function loginAPI(usuario, senha) {
-  return api.post('/login', {usuario, senha});
+  return api.post('/login', {usuario, senha}).then(res => {
+    api.defaults.headers.common.Authorization = res.data.token;
+    return res;
+  });
 }

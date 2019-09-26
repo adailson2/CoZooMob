@@ -19,7 +19,7 @@ class ListaAnimais extends Component {
           <FlatList
             data={animais}
             renderItem={({item}) => <Animal animal={item} />}
-            keyExtractor={item => item.nome}
+            keyExtractor={item => item._id}
           />
         </Content>
         <Fab
