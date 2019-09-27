@@ -26,6 +26,17 @@ const validate = values => {
 };
 
 class MantemAnimalForm extends Component {
+  componentDidMount() {
+    let {animal, initialize} = this.props;
+    animal = animal || {};
+    initialize({
+      nome: animal.nome,
+      urlImagem: animal.urlImagem,
+      _id: animal._id,
+      favoritoUsuarios: animal.favoritoUsuarios || [],
+    });
+  }
+
   renderInput = ({input, label, meta: {touched, error}}) => {
     var hasError = false;
     if (error !== undefined) {

@@ -1,4 +1,9 @@
-import {carregarAnimaisAPI, incluirAnimalAPI, loginAPI} from './api';
+import {
+  carregarAnimaisAPI,
+  incluirAnimalAPI,
+  loginAPI,
+  alterarAnimalAPI,
+} from './api';
 import {
   LOGIN,
   FAVORITAR,
@@ -6,7 +11,19 @@ import {
   CARREGAR_ANIMAIS,
   SET_LOADING,
   INCLUIR_ANIMAL,
+  ALTERAR_ANIMAL,
 } from './constants';
+
+export function alterarAnimal(animal) {
+  return loadingWrapper(dispatch =>
+    alterarAnimalAPI(animal).then(res => {
+      dispatch({
+        type: ALTERAR_ANIMAL,
+        data: res.data,
+      });
+    }),
+  );
+}
 
 function loadingWrapper(asyncFunc) {
   return dispatch => {
