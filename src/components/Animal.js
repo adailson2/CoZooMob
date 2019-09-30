@@ -7,9 +7,10 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Alert,
 } from 'react-native';
 import {connect} from 'react-redux';
-import {favoritar, desfavoritar} from '../actions';
+import {favoritar, desfavoritar, excluirAnimal} from '../actions';
 import BotaoFavoritar from './BotaoFavoritar';
 import {bindActionCreators} from 'redux';
 
@@ -21,7 +22,18 @@ class Animal extends Component {
   }
 
   excluir(animal) {
-    console.warn(animal);
+    Alert.alert(
+      'Atenção!',
+      'Confirma a exclusão do animal ' + animal.nome + '?',
+      [
+        {text: 'OK', onPress: () => this.props.excluirAnimal(animal)},
+        {
+          text: 'Cancelar',
+          style: 'cancel',
+        },
+      ],
+      {cancelable: true},
+    );
   }
 
   render() {
@@ -88,7 +100,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({favoritar, desfavoritar}, dispatch);
+  bindActionCreators({favoritar, desfavoritar, excluirAnimal}, dispatch);
 
 export default connect(
   mapStateToProps,

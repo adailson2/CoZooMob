@@ -4,6 +4,7 @@ import {
   CARREGAR_ANIMAIS,
   INCLUIR_ANIMAL,
   ALTERAR_ANIMAL,
+  EXCLUIR_ANIMAL,
 } from '../constants';
 
 const initialState = [];
@@ -14,11 +15,12 @@ function atualizaAnimal(listaAnimais, animal) {
 
 export default function animaisReducer(state = initialState, action) {
   switch (action.type) {
-    case CARREGAR_ANIMAIS: {
+    case CARREGAR_ANIMAIS:
       return action.data;
-    }
     case INCLUIR_ANIMAL:
       return [...state, action.data];
+    case EXCLUIR_ANIMAL:
+      return state.filter(animal => animal._id !== action.data._id);
     case ALTERAR_ANIMAL:
       return atualizaAnimal(state, action.data);
     case FAVORITAR: {
