@@ -5,14 +5,19 @@ import {
   Item as FormItem,
   Label,
   Content,
+  Card,
+  CardItem,
+  Body,
 } from 'native-base';
 import React, {Component} from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {StyleSheet, Text, Dimensions, Image} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {login} from '../actions';
 import Alerta from '../util/Alerta';
 import {StackActions, NavigationActions} from 'react-navigation';
+
+const {width} = Dimensions.get('screen');
 
 class Login extends Component {
   constructor(props) {
@@ -40,26 +45,39 @@ class Login extends Component {
 
   render() {
     return (
-      <Content padder>
+      <Content style={styles.contentStyle}>
+        <Card>
+          <Body style={styles.imageContainer}>
+            <Image
+              source={{
+                uri:
+                  'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Loggerhead_sea_turtle.jpg/250px-Loggerhead_sea_turtle.jpg',
+              }}
+              style={styles.imagemAnimal}
+            />
+          </Body>
+        </Card>
         <Form>
           <FormItem floatingLabel>
-            <Label>Usuario</Label>
+            <Label style={styles.label}>Usuário</Label>
             <Input
               onChangeText={text => this.setState({usuario: text})}
               autoCapitalize="none"
               value={this.state.usuario}
+              style={styles.inputColor}
             />
           </FormItem>
           <FormItem floatingLabel last>
-            <Label>Senha</Label>
+            <Label style={styles.label}>Senha</Label>
             <Input
               secureTextEntry={true}
               onChangeText={text => this.setState({senha: text})}
               value={this.state.senha}
+              style={styles.inputColor}
             />
           </FormItem>
-          <Button full primary style={styles.botaoLogin} onPress={this.login}>
-            <Text>Logar</Text>
+          <Button full rounded style={styles.botaoLogin} onPress={this.login}>
+            <Text style={styles.labelLogar}>Logar</Text>
           </Button>
         </Form>
       </Content>
@@ -77,5 +95,18 @@ export default connect(
 )(Login);
 
 const styles = StyleSheet.create({
-  botaoLogin: {marginTop: 10},
+  botaoLogin: {marginTop: 10, backgroundColor: 'white'},
+  contentStyle: {backgroundColor: 'rgb(24,187,133)'},
+  imageContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgb(24,187,133)',
+    marginTop: -10,
+  },
+  imagemAnimal: {width: width, height: width * 0.7},
+  imageCardItem: {backgroundColor: 'rgb(24,187,133)'},
+  label: {color: 'white', fontWeight: '900'},
+  labelLogar: {color: 'rgb(24,187,133)', fontWeight: 'bold'},
+  inputColor: {color: '#FFF'},
 });

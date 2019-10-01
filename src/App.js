@@ -24,7 +24,7 @@ const AppNavigation = createStackNavigator(
     initialRouteName: 'Login',
     defaultNavigationOptions: {
       header: () => (
-        <Header style={styles.header}>
+        <Header style={styles.header} androidStatusBarColor={'rgb(70,66,88)'}>
           <Title>Controle de Animais</Title>
         </Header>
       ),
@@ -48,7 +48,7 @@ export default class App extends Component {
 }
 
 const styles = StyleSheet.create({
-  header: {height: 30},
+  header: {height: 30, backgroundColor: 'rgb(70,66,88)'},
   separator: {
     height: 1,
     backgroundColor: '#CED0CE',
